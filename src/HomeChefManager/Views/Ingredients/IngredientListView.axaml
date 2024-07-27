@@ -1,0 +1,100 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:HomeChefManager.ViewModels.Ingredients"
+             xmlns:view="clr-namespace:HomeChefManager.Views.Ingredients"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="HomeChefManager.Views.Ingredients.IngredientListView"
+             x:DataType="vm:IngredientListViewModel"
+             FontSize="16">
+
+    <Design.DataContext>
+        <vm:IngredientListViewModel/>
+    </Design.DataContext>
+
+    <Grid Name="Root" RowDefinitions="*">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20, 5, 20, -10">
+                <Button Content="Add Ingredient"
+                        Theme="{DynamicResource SolidButton}"
+                        Command="{Binding OpenAddIngredientCommand}"
+                        HorizontalAlignment="Left"
+                        FontSize="16"
+                        Margin="0, 0, 10, 0"/>
+                <TextBox Watermark="Search Ingredients"
+                         Text="{Binding FilterString}"
+                         Width="200"
+                         FontSize="16"
+                         HorizontalAlignment="Stretch"/>
+           </StackPanel>
+
+            <DataGrid Margin="20"
+                      ItemsSource="{Binding IngredientList}"
+                      VerticalScrollBarVisibility="Visible"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="False"
+                      GridLinesVisibility="All"
+                      Height="800"
+                      SelectedItem=""
+                      BorderBrush="Gray"
+                      BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+                    <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" />
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" />
+                    <DataGridTemplateColumn Header="" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:CompileBindings="False"
+                                        Command="{Binding #Root.DataContext.OpenDetailIngredientCommand}"
+                                        CommandParameter="{Binding}"
+                                        Theme="{DynamicResource SolidButton}"
+                                        Classes="Secondary"
+                                        Width="150"
+                                        HorizontalAlignment="Right"
+                                        Margin="0, 0, 20, 0"
+                                        FontSize="16"
+                                        Content="Details"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <Border Background="#AA000000"
+                ZIndex="1"
+                VerticalAlignment="Stretch">
+            <Border.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                    <Binding Path="IsAddIngredientDialogOpen"/>
+                    <Binding Path="IsDetailIngredientDialogOpen"/>
+                </MultiBinding>
+            </Border.IsVisible>
+        </Border>
+        <Border IsVisible="{Binding IsAddIngredientDialogOpen}"
+                Background="White"
+                Width="600" Height="800"
+                BoxShadow="2 2 10 0 Black"
+                CornerRadius="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ZIndex="2">
+            <view:AddIngredientView DataContext="{Binding AddIngredientViewModel}"/>
+        </Border>
+        <Border IsVisible="{Binding IsDetailIngredientDialogOpen}"
+                Background="White"
+                Width="600" Height="800"
+                BoxShadow="2 2 10 0 Black"
+                CornerRadius="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ZIndex="2">
+            <view:DetailIngredientView DataContext="{Binding DetailIngredientViewModel}"/>
+        </Border>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:HomeChefManager.ViewModels.Ingredients"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
+             x:Class="HomeChefManager.Views.Ingredients.AddIngredientView"
+             x:DataType="vm:AddIngredientViewModel"
+             FontSize="16">
+
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Please Enter The Ingredient Details"
+                   FontWeight="SemiBold"
+                   FontSize="20"
+                   HorizontalAlignment="Center"
+                   Padding="10, 15, 10, 0"/>
+
+        <StackPanel DockPanel.Dock="Top" Margin="25, 10, 25, 0">
+            <TextBlock Text="Name:"
+                       VerticalAlignment="Center"
+                       Padding="0, 5"/>
+            <TextBox Text="{Binding Name}"
+                     Watermark="Enter the Name..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Quantity:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding Quantity}"
+                     Watermark="Enter the Quantity..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Unit:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <ComboBox SelectedItem="{Binding Unit}"
+                      ItemsSource="{Binding Units}"
+                      PlaceholderText="Select a Unit..."
+                      FontSize="16"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Category:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding Category}"
+                     Watermark="Enter an optional Category..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Margin="20, 20, 20, 20"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Add Ingredient"
+                    Command="{Binding AddIngredientCommand}"
+                    Theme="{DynamicResource SolidButton}"
+                    Width="200"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    FontSize="16"
+                    Margin="0, 0, 5, 0"/>
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    Theme="{DynamicResource SolidButton}"
+                    Classes="Tertiary"
+                    Width="200"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    FontSize="16"
+                    Margin="0, 0, 5, 0"/>
+        </StackPanel>
+    </DockPanel>
+
+</UserControl>

@@ -1,0 +1,151 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:HomeChefManager.ViewModels.Recipes"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
+             x:Class="HomeChefManager.Views.Recipes.AddRecipe"
+             x:DataType="vm:AddRecipeViewModel"
+             FontSize="16">
+
+    <DockPanel Name="Root">
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Please Enter The Recipe Details"
+                   FontWeight="SemiBold"
+                   FontSize="20"
+                   HorizontalAlignment="Center"
+                   Padding="10, 15, 10, 0"/>
+
+        <Border Height="670" DockPanel.Dock="Top" Margin="5, 0">
+        <ScrollViewer DockPanel.Dock="Top">
+        <StackPanel Margin="20, 10, 20, 0">
+            <TextBlock Text="Name:"
+                       VerticalAlignment="Center"
+                       Padding="0, 5"/>
+            <TextBox Text="{Binding Name}"
+                     Watermark="Enter the Name..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Servings:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding Servings}"
+                     Watermark="Enter the Servings..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Time To Prepare:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding TimeToPrepare}"
+                     Watermark="Enter the Time To Prepare..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Time To Cook:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding TimeToCook}"
+                     Watermark="Enter the Time To Cook..."
+                     FontSize="16"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="Ingredients:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+
+            <Button Content="Add Ingredient"
+                    FontSize="16"
+                    Command="{Binding AddIngredientCommand}"/>
+
+            <ItemsControl ItemsSource="{Binding IngredientStringQuantities}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, *">
+                            <AutoCompleteBox Grid.Column="0"
+                                             Watermark="Enter the Name..."
+                                             x:CompileBindings="False"
+                                             IsTextCompletionEnabled="False"
+                                             FilterMode="StartsWithOrdinal"
+                                             ItemsSource="{Binding #Root.DataContext.Ingredients}"
+                                             SelectedItem="{Binding SelectedIngredient}">
+                                <AutoCompleteBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </AutoCompleteBox.ItemTemplate>
+                            </AutoCompleteBox>
+
+                            <TextBox Grid.Column="1"
+                                     Watermark="Enter the Quantity..."
+                                     FontSize="16"
+                                     Text="{Binding Quantity}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock Text="{Binding IngredientsError}"
+                       IsVisible="{Binding HasErrors}"
+                       FontSize="14"
+                       Foreground="#fa503a"
+                       Margin="0, 5"
+                       VerticalAlignment="Center"/>
+
+            <TextBlock Text="Directions:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding Directions}"
+                     Watermark="Enter the Directions..."
+                     AcceptsReturn="True"
+                     Height="200"
+                     FontSize="16"
+                     TextWrapping="Wrap"
+                     Padding="8, 3"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Top"/>
+
+            <TextBlock Text="Notes:"
+                       VerticalAlignment="Center"
+                       Padding="0, 10, 0, 5"/>
+            <TextBox Text="{Binding Notes}"
+                     Watermark="Enter some Notes..."
+                     AcceptsReturn="True"
+                     Height="70"
+                     FontSize="16"
+                     TextWrapping="Wrap"
+                     Padding="8, 3"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Top"/>
+        </StackPanel>
+        </ScrollViewer>
+        </Border>
+
+        <StackPanel DockPanel.Dock="Bottom" Margin="20, 20, 20, 10"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Confirm"
+                    Command="{Binding AddRecipeCommand}"
+                    Theme="{DynamicResource SolidButton}"
+                    Width="200"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="0, 0, 5, 0"/>
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    Theme="{DynamicResource SolidButton}"
+                    Classes="Tertiary"
+                    Width="200"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="0, 0, 5, 0"/>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:HomeChefManager.ViewModels.Recipes"
+             xmlns:view="clr-namespace:HomeChefManager.Views.Recipes"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="HomeChefManager.Views.Recipes.RecipeListView"
+             x:DataType="vm:RecipeListViewModel"
+             FontSize="16">
+
+    <Design.DataContext>
+        <vm:RecipeListViewModel/>
+    </Design.DataContext>
+
+    <Grid Name="Root" RowDefinitions="*">
+        <Grid RowDefinitions="Auto, *">
+            <Button Grid.Row="0"
+                    Content="Add Recipe"
+                    Theme="{DynamicResource SolidButton}"
+                    HorizontalAlignment="Left"
+                    Margin="20, 5, 20, 0"
+                    FontSize="16"
+                    Command="{Binding OpenAddRecipeCommand}"/>
+
+            <Border Grid.Row="1">
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding RecipeList}"
+                                  Margin="20, 5">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="10"
+                                        Background="#FFFFFF"
+                                        BorderBrush="#DDD"
+                                        BorderThickness="1"
+                                        Padding="10"
+                                        Margin="0, 5">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontWeight="Bold"
+                                                   Margin="0, 0, 0, 5"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="0, 0, 0, 5">
+                                            <TextBlock Text="{Binding Servings, StringFormat='Servings: {0}'}"
+                                                       Margin="0, 0, 10, 0"/>
+                                            <TextBlock Text="{Binding TimeToPrepare, StringFormat='Prep: {0} min'}"/>
+                                            <TextBlock Text="{Binding TimeToCook, StringFormat='Cook: {0} min'}"
+                                                       Margin="10, 0, 0, 0"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:CompileBindings="False"
+                                                    Command="{Binding #Root.DataContext.OpenDetailRecipeCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Content="Details"
+                                                    Theme="{DynamicResource SolidButton}"
+                                                    Classes="Secondary"
+                                                    FontSize="16"
+                                                    Width="150"
+                                                    Padding="10, 7"
+                                                    Margin="0, 0, 5, 0"/>
+                                            <Button x:CompileBindings="False"
+                                                    Command="{Binding #Root.DataContext.OpenCookRecipeCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Content="Cook"
+                                                    Theme="{DynamicResource SolidButton}"
+                                                    Classes="Success"
+                                                    Width="150"
+                                                    FontSize="16"
+                                                    Padding="10, 7"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+        </Grid>
+
+
+        <Border Background="#AA000000"
+                ZIndex="1"
+                VerticalAlignment="Stretch">
+            <Border.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                    <Binding Path="IsAddRecipeDialogOpen"/>
+                    <Binding Path="IsDetailRecipeDialogOpen"/>
+                    <Binding Path="IsCookRecipeDialogOpen"/>
+                </MultiBinding>
+            </Border.IsVisible>
+        </Border>
+        <Border IsVisible="{Binding IsAddRecipeDialogOpen}"
+                Background="White"
+                Width="600" Height="800"
+                BoxShadow="2 2 10 0 Black"
+                CornerRadius="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ZIndex="2">
+            <view:AddRecipe DataContext="{Binding AddRecipeViewModel}"/>
+        </Border>
+        <Border IsVisible="{Binding IsDetailRecipeDialogOpen}"
+                Background="White"
+                Width="600" Height="800"
+                BoxShadow="2 2 10 0 Black"
+                CornerRadius="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ZIndex="2">
+            <view:DetailRecipeView DataContext="{Binding DetailRecipeViewModel}"/>
+        </Border>
+        <Border IsVisible="{Binding IsCookRecipeDialogOpen}"
+                Background="White"
+                Width="600" Height="800"
+                BoxShadow="2 2 10 0 Black"
+                CornerRadius="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ZIndex="2">
+            <view:CookRecipeView DataContext="{Binding CookRecipeViewModel}"/>
+        </Border>
+    </Grid>
+
+</UserControl>

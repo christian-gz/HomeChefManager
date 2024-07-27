@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeChefManager", "HomeChefManager\HomeChefManager.csproj", "{69657835-1CD3-4ED7-A2AB-97C89659BE41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeChefManager.Tests", "HomeChefManager.Tests\HomeChefManager.Tests.csproj", "{9DC62557-BB14-45E6-BC9C-833ED5033B91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69657835-1CD3-4ED7-A2AB-97C89659BE41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69657835-1CD3-4ED7-A2AB-97C89659BE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69657835-1CD3-4ED7-A2AB-97C89659BE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69657835-1CD3-4ED7-A2AB-97C89659BE41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC62557-BB14-45E6-BC9C-833ED5033B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC62557-BB14-45E6-BC9C-833ED5033B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC62557-BB14-45E6-BC9C-833ED5033B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC62557-BB14-45E6-BC9C-833ED5033B91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
